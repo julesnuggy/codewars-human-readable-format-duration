@@ -34,7 +34,26 @@ const formatDuration = (seconds) => {
   }
 
   const timePortions = calculateTimePortions(seconds);
-  return timePortions;
+
+  let result = '';
+
+  timePortions.forEach((portion, index) => {
+    if (timePortions.length === 1) {
+      // 1. If there is just 1 portion in the array, just return that.
+      result = portion;
+    } else if (index === timePortions.length - 1) {
+      // Skip to 2 below first...
+      // 3. When we get to the last potion, remove the penultimate time portion's
+      // ", ", then add the string "and " and then the string of the final time portion.
+      result = result.slice(0, -2) + ` and ${portion}`
+    } else {
+      // 2. If there is more than 1 portion in the array, then concatenate the strings
+      // adding the ", " to the end of each time portion.
+      result += `${portion}, `
+    }
+  });
+
+  return result;
 }
 
 console.log(formatDuration(63999999));
