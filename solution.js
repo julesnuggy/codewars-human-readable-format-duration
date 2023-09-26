@@ -28,13 +28,7 @@ const calculateTimePortions = (seconds) => {
   return timePortions;
 }
 
-const formatDuration = (seconds) => {
-  if (seconds === 0) {
-    return 'now';
-  }
-
-  const timePortions = calculateTimePortions(seconds);
-
+const createStringDuration = (timePortions) => {
   let result = '';
 
   timePortions.forEach((portion, index) => {
@@ -54,6 +48,15 @@ const formatDuration = (seconds) => {
   });
 
   return result;
+}
+
+const formatDuration = (seconds) => {
+  if (seconds === 0) {
+    return 'now';
+  }
+
+  const timePortions = calculateTimePortions(seconds);
+  return createStringDuration(timePortions);
 }
 
 console.log(formatDuration(63999999));
